@@ -11,13 +11,25 @@ jobs:
   test:
     # bobbz and sally are two build in 2 different docker containers runned bz cicrcle ci servers
     docker: 
-        - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
+      - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
     steps:
-        - checkout # check out the code in the project directory
-        - run: echo "Double # run the `echo` command
+      - checkout # check out the code in the project directory
+      - run: echo "testing" # run the `echo` command
+      - run: npm install
+      - run: npm test
+  hithere:
+    docker: 
+      - image: circleci/node:4.8.2
+    steps:
+    # i can pass any npm commands there, even conditionals lets say if test coverage is : 80% pass else fail
+      - checkout # check out the code in the project directory
+      - run: echo "helllllo" # run the `echo` command
 workflows: 
   version: 2
-  bobby_sally: 
-      jobs:
-        - bobby
-        - sally
+  build_test_and_lint: 
+    jobs:
+      - build
+      - hithere
+      - test:
+          requires:
+            - hithere
