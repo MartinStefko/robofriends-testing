@@ -34,3 +34,5 @@ workflows:
           requires:
             - hithere
       # only run test container if hi therecontainer pass integration
+      # i can set up the max file size 100mb and if the cumulative file size passes
+      # that the test on that container will fail
